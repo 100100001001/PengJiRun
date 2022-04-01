@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -92,5 +92,15 @@ public class GameManager : MonoBehaviour
 
         if (hpCount <= 0) return true;
         return false;
+    }
+
+    public void HPPlus()
+    {
+        if (hpCount > 3) hpCount = 3;
+
+        hpPrefabPositive[hpCount].SetActive(true);
+        hpPrefabNegative[hpCount].SetActive(false);
+
+        hpCount++;
     }
 }

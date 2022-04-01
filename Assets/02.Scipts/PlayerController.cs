@@ -1,31 +1,36 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // ÇÃ·¹ÀÌ¾î°¡ »ç¸Á ½Ã Àç»ıÇÒ ¿Àµğ¿À Å¬¸³
+    // í”Œë ˆì´ì–´ê°€ ì‚¬ë§ ì‹œ ì¬ìƒí•  ì˜¤ë””ì˜¤ í´ë¦½
     public AudioClip deathClip;
-    // Á¡ÇÁ Èû
+    // ì í”„ í˜
     public float jumpForce = 700f;
 
-    // ´©Àû Á¡ÇÁ È½¼ö
-    private int jumpCount = 0;
-    // ÇÃ·¹ÀÌ¾î°¡ ¹Ù´Ú¿¡ ´ê¾Ò´ÂÁö È®ÀÎ
+    // ëˆ„ì  ì í”„ íšŸìˆ˜
+    //private int jumpCount = 0;
+    // í”Œë ˆì´ì–´ê°€ ë°”ë‹¥ì— ë‹¿ì•˜ëŠ”ì§€ í™•ì¸
     private bool isGrounded = false;
-    // ÇÃ·¹ÀÌ¾î°¡ Á×¾ú³Ä »ì¾Ò³Ä = »ç¸Á »óÅÂ
+    // í”Œë ˆì´ì–´ê°€ ì£½ì—ˆëƒ ì‚´ì•˜ëƒ = ì‚¬ë§ ìƒíƒœ
     private bool isDead = false;
-    // »ç¿ëÇÒ ¸®Áöµå¹Ùµğ ÄÄÆ÷³ÍÆ®
+    // ì‚¬ìš©í•  ë¦¬ì§€ë“œë°”ë”” ì»´í¬ë„ŒíŠ¸
     private Rigidbody2D playerRigidbody;
-    // »ç¿ëÇÒ ¿Àµğ¿À ¼Ò½º ÄÄÆ÷³ÍÆ®
+    // ì‚¬ìš©í•  ì˜¤ë””ì˜¤ ì†ŒìŠ¤ ì»´í¬ë„ŒíŠ¸
     private AudioSource playerAudio;
-    // »ç¿ëÇÒ ¾Ö´Ï¸ŞÀÌÅÍ ÄÄÆ÷³ÍÆ®
+    // ì‚¬ìš©í•  ì• ë‹ˆë©”ì´í„° ì»´í¬ë„ŒíŠ¸
     private Animator animator;
+
+    public AudioClip sparkClip;
+    public AudioClip jumpClip;
+    public AudioClip starClip;
+    public AudioClip hpClip;
 
     void Start()
     {
-        // Àü¿ªº¯¼öÀÇ ÃÊ±âÈ­ ÁøÇà
-        // °ÔÀÓ ¿ÀºêÁ§Æ®·ÎºÎÅÍ »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®µéÀ» °¡Á®¿Í º¯¼ö¿¡ ÇÒ´ç
+        // ì „ì—­ë³€ìˆ˜ì˜ ì´ˆê¸°í™” ì§„í–‰
+        // ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¡œë¶€í„° ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ë“¤ì„ ê°€ì ¸ì™€ ë³€ìˆ˜ì— í• ë‹¹
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAudio = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
@@ -33,23 +38,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // »ç¿ëÀÚÀÇ ÀÔ·ÂÀ» °¨ÁöÇÏ°í Á¡ÇÁÇÏ´Â Ã³¸®
-        // 1. ÇöÀç »óÈ²¿¡ ¾Ë¸ÂÀº ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Àç»ı
-        // 2. ¸¶¿ì½º ¿ŞÂÊ Å¬¸¯À» °¨ÁöÇÏ°í Á¡ÇÁ
-        // 3. ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À» ¿À·¡ ´©¸£¸é ³ôÀÌ Á¡ÇÁ
-        // 4. ÃÖ´ë Á¡ÇÁ È½¼ö¿¡ µµ´ŞÇÏ¸é Á¡ÇÁ¸¦ ¸øÇÏ±â ¸·±â
+        // ì‚¬ìš©ìì˜ ì…ë ¥ì„ ê°ì§€í•˜ê³  ì í”„í•˜ëŠ” ì²˜ë¦¬
+        // 1. í˜„ì¬ ìƒí™©ì— ì•Œë§ì€ ì• ë‹ˆë©”ì´ì…˜ì„ ì¬ìƒ
+        // 2. ë§ˆìš°ìŠ¤ ì™¼ìª½ í´ë¦­ì„ ê°ì§€í•˜ê³  ì í”„
+        // 3. ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì„ ì˜¤ë˜ ëˆ„ë¥´ë©´ ë†’ì´ ì í”„
+        // 4. ìµœëŒ€ ì í”„ íšŸìˆ˜ì— ë„ë‹¬í•˜ë©´ ì í”„ë¥¼ ëª»í•˜ê¸° ë§‰ê¸°
 
-        // »ç¸Á ½Ã ´õ ÀÌ»ó Ã³¸®¸¦ ÁøÇàÇÏÁö ¾Ê°í Á¾·á
+        // ì‚¬ë§ ì‹œ ë” ì´ìƒ ì²˜ë¦¬ë¥¼ ì§„í–‰í•˜ì§€ ì•Šê³  ì¢…ë£Œ
         if (isDead) return;
 
-        if (Input.GetMouseButtonDown(0) && jumpCount < 3)
+        if (Input.GetMouseButtonDown(0)) //&& jumpCount < 3)
         {
-            jumpCount++;
+            //jumpCount++;
             playerRigidbody.velocity = Vector2.zero;
 
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
 
-            playerAudio.Play();
+            playerAudio.PlayOneShot(jumpClip);
         }
 
         else if (Input.GetMouseButtonUp(0) && playerRigidbody.velocity.y > 0)
@@ -62,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        // »ç¸Á Ã³¸®
+        // ì‚¬ë§ ì²˜ë¦¬
         animator.SetTrigger("Die");
 
         playerAudio.clip = deathClip;
@@ -76,24 +81,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // ¹Ù´Ú¿¡ ´êÀÚ¸¶ÀÚ °¨ÁöÇÏ´Â Ã³¸®
+        // ë°”ë‹¥ì— ë‹¿ìë§ˆì ê°ì§€í•˜ëŠ” ì²˜ë¦¬
         if (collision.contacts[0].normal.y > 0.7f)
         {
             isGrounded = true;
-            jumpCount = 0;
+            //jumpCount = 0;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // ¹Ù´Ú¿¡ ¹ş¾î³ªÀÚ¸¶ÀÚ Ã³¸®
+        // ë°”ë‹¥ì— ë²—ì–´ë‚˜ìë§ˆì ì²˜ë¦¬
 
         isGrounded = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Æ®¸®°Å Äİ¶óÀÌ´õ¸¦ °¡Áø Àå¾Ö¹°°úÀÇ Ãæµ¹ °¨Áö
+        // íŠ¸ë¦¬ê±° ì½œë¼ì´ë”ë¥¼ ê°€ì§„ ì¥ì• ë¬¼ê³¼ì˜ ì¶©ëŒ ê°ì§€
 
         if (isDead) return;
         switch (collision.tag)
@@ -102,10 +107,17 @@ public class PlayerController : MonoBehaviour
                 Die();
                 break;
             case "Spark":
+                playerAudio.PlayOneShot(sparkClip);
                 if (GameManager.instance.Crash()) Die();
                 break;
             case "Star":
+                playerAudio.PlayOneShot(starClip);
                 GameManager.instance.AddScore(50);
+                collision.gameObject.SetActive(false);
+                break;
+            case "HP":
+                playerAudio.PlayOneShot(hpClip);
+                GameManager.instance.HPPlus();
                 collision.gameObject.SetActive(false);
                 break;
             default:

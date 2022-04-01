@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,29 +13,8 @@ public class Platform : MonoBehaviour
     {
         stepped = false;
 
-        for (int i = 0; i < obstacles.Length; i++)
-        {
-            if (Random.Range(0, 4) == 0)
-            {
-                obstacles[i].SetActive(true);
-            }
-            else
-            {
-                obstacles[i].SetActive(false);
-            }
-        }
-
-        for (int i = 0; i < stars.Length; i++)
-        {
-            if (Random.Range(0,5) == 0)
-            {
-                stars[i].SetActive(true);
-            }
-            else
-            {
-                stars[i].SetActive(false);
-            }
-        }
+        for (int i = 0; i < obstacles.Length; i++) obstacles[i].SetActive(Random.Range(0, 4) == 0 ? true : false);
+        for (int i = 0; i < stars.Length; i++) stars[i].SetActive(Random.Range(0, 2) == 0 ? true : false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,7 +23,6 @@ public class Platform : MonoBehaviour
         {
             stepped = true;
             GameManager.instance.AddScore(1);
-
         }
     }
 }

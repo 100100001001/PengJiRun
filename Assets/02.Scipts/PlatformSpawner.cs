@@ -1,109 +1,178 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¹ßÆÇÀ» »ı¼ºÇÏ°í ÁÖ±âÀûÀ¸·Î Àç¹èÄ¡ÇÏ´Â ½ºÅ©¸³Æ®
+// ë°œíŒì„ ìƒì„±í•˜ê³  ì£¼ê¸°ì ìœ¼ë¡œ ì¬ë°°ì¹˜í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
 public class PlatformSpawner : MonoBehaviour
 {
-    // »ı¼ºÇÒ ¹ßÆÇÀÇ ¿øº» ÇÁ¸®ÆÕ
+    // ìƒì„±í•  ë°œíŒì˜ ì›ë³¸ í”„ë¦¬íŒ¹
     public GameObject platformPrefab;
-    // »ı¼ºÇÒ ¹ßÆÇ ¼ö
+    // ìƒì„±í•  ë°œíŒ ìˆ˜
     public int count = 5;
 
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ ÃÖ¼Ú°ª
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²© ìµœì†Ÿê°’
     public float timeBetSpawnMin = 1.25f;
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ ÃÖ´ñ°ª
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²© ìµœëŒ“ê°’
     public float timeBetSpawnMax = 2.25f;
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©
     private float timeBetSpawn;
 
-    // ¹èÄ¡ÇÒ À§Ä¡ÀÇ ÃÖ¼Ò y°ª
+    // ë°°ì¹˜í•  ìœ„ì¹˜ì˜ ìµœì†Œ yê°’
     public float yMin = -5f;
-    // ¹èÄ¡ÇÒ À§Ä¡ÀÇ ÃÖ´ë y°ª
+    // ë°°ì¹˜í•  ìœ„ì¹˜ì˜ ìµœëŒ€ yê°’
     public float yMax = 1.5f;
-    // ¹èÄ¡ÇÒ À§Ä¡ÀÇ x°ª
+    // ë°°ì¹˜í•  ìœ„ì¹˜ì˜ xê°’
     private float xPos = 20f;
 
-    // ¹Ì¸® »ı¼ºÇÑ ¹ßÆÇµéÀ» º¸°üÇÒ ¹è¿­
+    // ë¯¸ë¦¬ ìƒì„±í•œ ë°œíŒë“¤ì„ ë³´ê´€í•  ë°°ì—´
     private GameObject[] platforms;
-    // »ç¿ëÇÒ ÇöÀç ¼ø¹øÀÇ ¹ßÆÇ
+    // ì‚¬ìš©í•  í˜„ì¬ ìˆœë²ˆì˜ ë°œíŒ
     private int currentIndex = 0;
 
-    // ÃÊ¹İ¿¡ »ı¼ºÇÑ ¹ßÆÇÀ» È­¸é ¹Û¿¡ ¼û°ÜµÑ À§Ä¡
+    // ì´ˆë°˜ì— ìƒì„±í•œ ë°œíŒì„ í™”ë©´ ë°–ì— ìˆ¨ê²¨ë‘˜ ìœ„ì¹˜
     private Vector2 poolPosition = new Vector2(0, -25);
-    // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡
+    // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì 
     private float lastSpawnTime;
 
     // +HP
-    //public GameObject hpPlusPrefab;
-    //private GameObject[] hpPlus;
-    //public float hpXMin = -1.5f;
-    //public float hpXMax = 1.5f;
+    private GameObject[] hpPlus;
+    public GameObject hpPlusPrefab;
+    public float hpXMin = -1.5f;
+    public float hpXMax = 1.5f;
+    public float hpYMin = -3f;
+    public float hpYMax = 2f;
+    private int hpIdx = 0;
+    private int hpLen = 3;
+
+    // obstacle
+    private GameObject[] ob;
+    public GameObject obPrefab;
+    public float obScaleMin = 1f;
+    public float obScaleMax = 3f;
+
+    // star
+    private GameObject[] stars;
+    public GameObject starPrefab;
+    public float starXMin = -1.5f;
+    public float starXMax = 1.5f;
+    public float starYMin = -3f;
+    public float starYMax = 2f;
+    public int starIdx = 0;
+    public int starLen = 2;
 
     void Start()
     {
-        // º¯¼ö¸¦ ÃÊ±âÈ­ÇÏ°í »ç¿ëÇÒ ¹ßÆÇÀ» ¹Ì¸® »ı¼º
+        // ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•˜ê³  ì‚¬ìš©í•  ë°œíŒì„ ë¯¸ë¦¬ ìƒì„±
 
-        // count¸¸Å­ÀÇ °ø°£À» °¡Áö´Â »õ·Î¿î ¹ßÆÇ ¹è¿­ »ı¼º
+        // countë§Œí¼ì˜ ê³µê°„ì„ ê°€ì§€ëŠ” ìƒˆë¡œìš´ ë°œíŒ ë°°ì—´ ìƒì„±
         platforms = new GameObject[count];
-        //hpPlus = new GameObject[1];
+        ob = new GameObject[count];
+        hpPlus = new GameObject[hpLen];
+        stars = new GameObject[starLen];
 
-        // count¸¸Å­ ·çÇÁÇÏ¸é¼­ ¹ßÆÇ »ı¼ºs
+        // countë§Œí¼ ë£¨í”„í•˜ë©´ì„œ ë°œíŒ ìƒì„±s
         for (int i = 0; i < count; i++)
         {
             platforms[i] = Instantiate(platformPrefab, poolPosition, Quaternion.identity);
+            ob[i] = Instantiate(obPrefab, poolPosition, Quaternion.identity);
         }
 
-        //hpPlus[0] = Instantiate(hpPlusPrefab, poolPosition, Quaternion.identity);
+        for (int i = 0; i < hpLen; i++)
+        {
+            hpPlus[i] = Instantiate(hpPlusPrefab, poolPosition, Quaternion.identity);
+        }
+        //Instantiate(hpPlusPrefab, poolPosition, Quaternion.identity);
 
-        // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡ ÃÊ±âÈ­
+        for (int i = 0; i < starLen; i++)
+        {
+            stars[i] = Instantiate(starPrefab, poolPosition, Quaternion.identity);
+        }
+
+
+        // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì  ì´ˆê¸°í™”
         lastSpawnTime = 0f;
-        // ´ÙÀ½¹ø ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İÀ» ÃÊ±âÈ­
+        // ë‹¤ìŒë²ˆ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©ì„ ì´ˆê¸°í™”
         timeBetSpawn = 0f;
     }
 
     void Update()
     {
-        // ¼ø¼­¸¦ µ¹¾Æ°¡¸ç ÁÖ±âÀû ¹ßÆÇÀ» ¹èÄ¡
+        // ìˆœì„œë¥¼ ëŒì•„ê°€ë©° ì£¼ê¸°ì  ë°œíŒì„ ë°°ì¹˜
 
-        // °ÔÀÓ¿À¹ö »óÅÂ¿¡¼­´Â µ¿ÀÛÇÏÁö ¾ÊÀ½
+        // ê²Œì„ì˜¤ë²„ ìƒíƒœì—ì„œëŠ” ë™ì‘í•˜ì§€ ì•ŠìŒ
         if (GameManager.instance.isGameover) return;
 
-        // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡¿¡¼­ timeBetSpawn ÀÌ»ó ½Ã°£ÀÌ Èê·¶´Ù¸é,
+        // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì ì—ì„œ timeBetSpawn ì´ìƒ ì‹œê°„ì´ í˜ë €ë‹¤ë©´,
         if (Time.time >= lastSpawnTime + timeBetSpawn)
         {
-            // ±â·ÏµÈ ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡À» ÇöÀç ½ÃÁ¡À¸·Î °»½Å
+            // ê¸°ë¡ëœ ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì ì„ í˜„ì¬ ì‹œì ìœ¼ë¡œ ê°±ì‹ 
             lastSpawnTime = Time.time;
 
-            // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İÀ» timeBetSpawnMin, timeBetSpawnMax »çÀÌ¿¡¼­ ·£´ı °¡Á®¿À±â
+            // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©ì„ timeBetSpawnMin, timeBetSpawnMax ì‚¬ì´ì—ì„œ ëœë¤ ê°€ì ¸ì˜¤ê¸°
             timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
 
-            // ¹èÄ¡ÇÒ À§Ä¡ÀÇ ³ôÀÌ¸¦ yMin°ú yMax »çÀÌ¿¡¼­ ·£´ı °¡Á®¿À±â
+            // ë°°ì¹˜í•  ìœ„ì¹˜ì˜ ë†’ì´ë¥¼ yMinê³¼ yMax ì‚¬ì´ì—ì„œ ëœë¤ ê°€ì ¸ì˜¤ê¸°
             float yPos = Random.Range(yMin, yMax);
 
             // +hp
-            //float hpXPos = Random.Range(hpXMin, hpXMax);
-            //float hpYPos = Random.Range(yPos, yMax) + 3f;
+            float hpXPos = Random.Range(hpXMin, hpXMax);
+            float hpYPos = Random.Range(hpYMin, hpYMax);
 
-
-            // »ç¿ëÇÒ ÇöÀç ¼ø¹øÀÇ ¹ßÆÇ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­ÇÏ°í ¹Ù·Î Áï½Ã ´Ù½Ã È°¼ºÈ­.
-            // ÀÌ ¶§, ¹ßÆÇÀÇ Platform ÄÄÆ÷³ÍÆ®ÀÇ OnEnable() ¸Ş¼­µå°¡ ½ÇÇàµÊ
+            // ì‚¬ìš©í•  í˜„ì¬ ìˆœë²ˆì˜ ë°œíŒ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”í•˜ê³  ë°”ë¡œ ì¦‰ì‹œ ë‹¤ì‹œ í™œì„±í™”.
+            // ì´ ë•Œ, ë°œíŒì˜ Platform ì»´í¬ë„ŒíŠ¸ì˜ OnEnable() ë©”ì„œë“œê°€ ì‹¤í–‰ë¨
             platforms[currentIndex].SetActive(false);
             platforms[currentIndex].SetActive(true);
 
-            // ÇöÀç ¼ø¹øÀÇ ¹ßÆÇÀ» È­¸é ¿À¸¥ÂÊ¿¡ Àç¹èÄ¡
+            // í˜„ì¬ ìˆœë²ˆì˜ ë°œíŒì„ í™”ë©´ ì˜¤ë¥¸ìª½ì— ì¬ë°°ì¹˜
             platforms[currentIndex].transform.position = new Vector2(xPos, yPos);
 
-            // +hp
-            //hpPlus[currentIndex].SetActive(false);
-            //hpPlus[currentIndex].SetActive(true);
-            //hpPlus[currentIndex].transform.position = new Vector2(hpXPos, hpYPos);
-            
+            // ob
+            float obXPos = Random.Range(hpXMin, hpXMax);
+            float obYPos = Random.Range(hpYMin, hpYMax);
+            ob[currentIndex].SetActive(false);
+            ob[currentIndex].SetActive(true);
+            float obScale = Random.Range(obScaleMin, obScaleMax);
+            ob[currentIndex].transform.localScale = new Vector3(obScale, obScale, obScale);
+            ob[currentIndex].transform.position = new Vector2(obXPos, obYPos);
 
-            // ¼ø¹ø ³Ñ±â±â
+            // +hp
+            if (GameManager.instance.hpCount < 3 && Random.Range(0, 2) == 0)
+            {
+                hpPlus[hpIdx].SetActive(false);
+                hpPlus[hpIdx].SetActive(true);
+                hpPlus[hpIdx].transform.position = new Vector2(hpXPos, hpYPos);
+                //hpPlusPrefab.SetActive(true);
+                //hpPlusPrefab.transform.position = new Vector2(xPos, hpYPos);
+
+                hpIdx++;
+
+                if (hpIdx >= hpLen)
+                {
+                    hpIdx = 0;
+                }
+            }
+
+            // hp ë‹¤ ì°¼ì„ ë•Œ
+            if (GameManager.instance.hpCount >= 3) for (int i = 0; i < hpLen; i++) hpPlus[i].SetActive(false);
+
+            // stars
+            float starXPos = Random.Range(starXMin, starXMax);
+            float starYPos = Random.Range(starYMin, starYMax);
+            stars[starIdx].SetActive(false);
+            stars[starIdx].SetActive(true);
+            stars[starIdx].transform.position = new Vector2(starXPos, starYPos);
+
+            starIdx++;
+
+            if (starIdx >= starLen)
+            {
+                starIdx = 0;
+            }
+
+            // ìˆœë²ˆ ë„˜ê¸°ê¸°
             currentIndex++;
 
-            // ¸¶Áö¸· ¼ø¹ø¿¡ µµ´ŞÇß´Ù¸é
+            // ë§ˆì§€ë§‰ ìˆœë²ˆì— ë„ë‹¬í–ˆë‹¤ë©´
             if (currentIndex >= count)
             {
                 currentIndex = 0;
