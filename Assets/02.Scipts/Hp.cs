@@ -8,6 +8,6 @@ public class Hp : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i = 0; i < hpPlus.Length; i++) hpPlus[i].SetActive(Random.Range(0, 3) == 0 ? true : false);
+        for (int i = 0; i < hpPlus.Length; i++) hpPlus[i].SetActive(Random.Range(0, 2) == 0 ? true : false);
     }
 }
