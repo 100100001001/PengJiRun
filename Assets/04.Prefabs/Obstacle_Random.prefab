@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6042891196832958882}
   - component: {fileID: 1381686949934564773}
   - component: {fileID: 6305761368741912197}
-  - component: {fileID: 67489339241374449}
   - component: {fileID: 7698870900723835782}
   m_Layer: 0
   m_Name: Obstacle_Random
@@ -101,19 +100,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &67489339241374449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5900882097407914468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b799854bc3ad174faa8e1031d78d932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!95 &7698870900723835782
 Animator:
   serializedVersion: 3

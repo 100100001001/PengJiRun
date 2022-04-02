@@ -11,14 +11,13 @@ GameObject:
   - component: {fileID: 6479588255247098866}
   - component: {fileID: 2934543832692796537}
   - component: {fileID: 6654959569653237362}
-  - component: {fileID: 632722249961762588}
   m_Layer: 0
-  m_Name: HPPlus
+  m_Name: hpPlus
   m_TagString: HP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6479588255247098866
 Transform:
   m_ObjectHideFlags: 0
@@ -100,16 +99,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
---- !u!114 &632722249961762588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2212498105076931277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b799854bc3ad174faa8e1031d78d932, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10

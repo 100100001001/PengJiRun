@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundItem : MonoBehaviour
+public class Ob : MonoBehaviour
 {
-    public GameObject[] stars;
+    public GameObject[] ob;
 
     private void OnEnable()
     {
-        for (int i = 0; i < stars.Length; i++)
+        for (int i = 0; i < ob.Length; i++)
         {
             if (Random.Range(0, 2) == 0)
             {
-                stars[i].SetActive(true);
+                ob[i].SetActive(true);
             }
             else
             {
-                stars[i].SetActive(false);
+                ob[i].SetActive(false);
             }
         }
     }
