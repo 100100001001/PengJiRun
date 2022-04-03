@@ -20,9 +20,14 @@ public class GameManager : MonoBehaviour
     public GameObject[] hpPrefabPositive;
     public GameObject[] hpPrefabNegative;
 
+    public Text recordText;
+
     void Start()
     {
         for (int i = 0; i < 3; i++) hpPrefabPositive[i].SetActive(true);
+
+        float bestTime = PlayerPrefs.GetFloat("BestTime");
+        recordText.text = "" + (int)bestTime;
     }
 
     private void Awake()
@@ -59,6 +64,19 @@ public class GameManager : MonoBehaviour
     {
         isGameover = true;
         gameoverUI.SetActive(true);
+
+        float bestTime = PlayerPrefs.GetFloat("BestTime");
+
+        // 이전까지의 최고 기록과 현재 생존 시간을 비교
+        if (bestTime < score)
+        {
+            // 최고 기록 값을 현재 생존 시간 값으로 변경
+            bestTime = score;
+            // 변경된 최고 기록을 'BestTime' 키로 저장
+            PlayerPrefs.SetFloat("BestTime", bestTime);
+        }
+
+        recordText.text = "" + (int)bestTime;
     }
 
     public void UIControl(string type)
@@ -85,6 +103,8 @@ public class GameManager : MonoBehaviour
 
     public bool Crash()
     {
+        if (PlayerController.feverTime) return false;
+
         hpCount--;
 
         hpPrefabPositive[hpCount].SetActive(false);

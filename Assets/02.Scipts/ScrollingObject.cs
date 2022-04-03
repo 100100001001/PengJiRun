@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScrollingObject : MonoBehaviour
 {
     public float speed = 10f;
+    public static float add = 0.001f;
 
     void Update()
     {
@@ -12,8 +13,7 @@ public class ScrollingObject : MonoBehaviour
         if (!GameManager.instance.isGameover)
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
-            speed += 0.001f;
-            Debug.Log(speed);
+            speed += add;
         }
     }
 }

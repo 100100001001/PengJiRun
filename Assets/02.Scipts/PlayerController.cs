@@ -26,6 +26,15 @@ public class PlayerController : MonoBehaviour
     public AudioClip jumpClip;
     public AudioClip starClip;
     public AudioClip hpClip;
+    public AudioClip potionClip;
+    public AudioClip feverClip;
+    public AudioClip endClip;
+
+    private Transform playerTransform;
+    public static bool feverTime = false;
+    public float feverTimeCnt = 10f;
+    public static bool potionTime = false;
+    public float potionTimeCnt = 5f;
 
     void Start()
     {
@@ -34,6 +43,7 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAudio = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+        playerTransform = GetComponent<Transform>();
     }
 
     void Update()
@@ -63,6 +73,38 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("Grounded", isGrounded);
+
+        if (potionTime)
+        {
+            feverTime = false;
+
+            potionTimeCnt -= Time.deltaTime;
+            if (potionTimeCnt < 0)
+            {
+                potionTimeCnt = 0;
+                playerTransform.localScale = new Vector3(1, 1, 1);
+                potionTime = false;
+                feverTime = false;
+                playerAudio.PlayOneShot(endClip);
+            }
+        }
+
+        if (feverTime)
+        {
+            animator.SetBool("Fever", feverTime);
+            potionTime = false;
+
+            feverTimeCnt -= Time.deltaTime;
+            if (feverTimeCnt < 0)
+            {
+                feverTimeCnt = 0;
+                playerTransform.localScale = new Vector3(1, 1, 1);
+                potionTime = false;
+                feverTime = false;
+                animator.SetBool("Fever", feverTime);
+                playerAudio.PlayOneShot(endClip);
+            }
+        }
     }
 
     void Die()
@@ -77,6 +119,24 @@ public class PlayerController : MonoBehaviour
         isDead = true;
 
         GameManager.instance.OnPlayerDead();
+    }
+
+    void potionPlus()
+    {
+        playerTransform.localScale = new Vector3(2f, 2f, 2f);
+        potionTime = true;
+    }
+
+    void potionMinus()
+    {
+        playerTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        potionTime = true;
+    }
+
+    void potionFever()
+    {
+        playerTransform.localScale = new Vector3(5f, 5f, 5f);
+        feverTime = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -118,6 +178,24 @@ public class PlayerController : MonoBehaviour
             case "HP":
                 playerAudio.PlayOneShot(hpClip);
                 GameManager.instance.HPPlus();
+                collision.gameObject.SetActive(false);
+                break;
+            case "PotionPlus":
+                playerAudio.PlayOneShot(potionClip);
+                GameManager.instance.AddScore(10);
+                potionPlus();
+                collision.gameObject.SetActive(false);
+                break;
+            case "PotionMinus":
+                playerAudio.PlayOneShot(potionClip);
+                GameManager.instance.AddScore(10);
+                potionMinus();
+                collision.gameObject.SetActive(false);
+                break;
+            case "PotionFever":
+                playerAudio.PlayOneShot(feverClip);
+                GameManager.instance.AddScore(20);
+                potionFever();
                 collision.gameObject.SetActive(false);
                 break;
             default:

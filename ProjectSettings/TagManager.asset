@@ -8,6 +8,9 @@ TagManager:
   - Spark
   - Star
   - HP
+  - PotionPlus
+  - PotionMinus
+  - PotionFever
   layers:
   - Default
   - TransparentFX
