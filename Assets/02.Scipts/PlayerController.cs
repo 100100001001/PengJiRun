@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip endClip;
 
     private Transform playerTransform;
-    public static bool feverTime = false;
-    public float feverTimeCnt = 10f;
     public static bool potionTime = false;
-    public float potionTimeCnt = 5f;
+    private float potionTimeCnt = 10f;
+    public static bool feverTime = false;
+    private float feverTimeCnt = 12f;
 
     void Start()
     {
@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
 
             playerAudio.PlayOneShot(jumpClip);
+            GameManager.instance.AddScore(1);
         }
 
         else if (Input.GetMouseButtonUp(0) && playerRigidbody.velocity.y > 0)
@@ -76,12 +77,10 @@ public class PlayerController : MonoBehaviour
 
         if (potionTime)
         {
-            feverTime = false;
-
             potionTimeCnt -= Time.deltaTime;
             if (potionTimeCnt < 0)
             {
-                potionTimeCnt = 0;
+                potionTimeCnt = 10f;
                 playerTransform.localScale = new Vector3(1, 1, 1);
                 potionTime = false;
                 feverTime = false;
@@ -92,12 +91,11 @@ public class PlayerController : MonoBehaviour
         if (feverTime)
         {
             animator.SetBool("Fever", feverTime);
-            potionTime = false;
 
             feverTimeCnt -= Time.deltaTime;
             if (feverTimeCnt < 0)
             {
-                feverTimeCnt = 0;
+                feverTimeCnt = 12f;
                 playerTransform.localScale = new Vector3(1, 1, 1);
                 potionTime = false;
                 feverTime = false;
@@ -123,20 +121,25 @@ public class PlayerController : MonoBehaviour
 
     void potionPlus()
     {
+        animator.SetBool("Fever", false);
         playerTransform.localScale = new Vector3(2f, 2f, 2f);
         potionTime = true;
+        feverTime = false;
     }
 
     void potionMinus()
     {
+        animator.SetBool("Fever", false);
         playerTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         potionTime = true;
+        feverTime = false;
     }
 
     void potionFever()
     {
         playerTransform.localScale = new Vector3(5f, 5f, 5f);
         feverTime = true;
+        potionTime = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -172,7 +175,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Star":
                 playerAudio.PlayOneShot(starClip);
-                GameManager.instance.AddScore(50);
+                GameManager.instance.AddScore(10);
                 collision.gameObject.SetActive(false);
                 break;
             case "HP":
@@ -182,19 +185,19 @@ public class PlayerController : MonoBehaviour
                 break;
             case "PotionPlus":
                 playerAudio.PlayOneShot(potionClip);
-                GameManager.instance.AddScore(10);
+                GameManager.instance.AddScore(20);
                 potionPlus();
                 collision.gameObject.SetActive(false);
                 break;
             case "PotionMinus":
                 playerAudio.PlayOneShot(potionClip);
-                GameManager.instance.AddScore(10);
+                GameManager.instance.AddScore(20);
                 potionMinus();
                 collision.gameObject.SetActive(false);
                 break;
             case "PotionFever":
                 playerAudio.PlayOneShot(feverClip);
-                GameManager.instance.AddScore(20);
+                GameManager.instance.AddScore(40);
                 potionFever();
                 collision.gameObject.SetActive(false);
                 break;

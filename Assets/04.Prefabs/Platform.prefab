@@ -727,7 +727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b799854bc3ad174faa8e1031d78d932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
 --- !u!114 &999470882732646441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,6 +743,13 @@ MonoBehaviour:
   - {fileID: 8377327439750864585}
   - {fileID: 8541664636179977003}
   - {fileID: 6516747436286055856}
+  stars:
+  - {fileID: 3965237566792603844}
+  - {fileID: 3388264613341056478}
+  - {fileID: 5556724950663304532}
+  - {fileID: 3989449660925586056}
+  - {fileID: 7038740841063593179}
+  - {fileID: 4131648424647385504}
 --- !u!1 &6516747436286055856
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +761,7 @@ GameObject:
   - component: {fileID: 7847571585172667427}
   - component: {fileID: 1160552191174931127}
   - component: {fileID: 534799351012708999}
+  - component: {fileID: 6440616931921490763}
   m_Layer: 0
   m_Name: Obstacle (2)
   m_TagString: Spark
@@ -843,6 +850,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!95 &6440616931921490763
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6516747436286055856}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95bedd42b4e64a04eb12981d99976d78, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7038740841063593179
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +999,7 @@ GameObject:
   - component: {fileID: 8377327439750864599}
   - component: {fileID: 8377327439750864598}
   - component: {fileID: 7384220899757277331}
+  - component: {fileID: 5623944600174938730}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Spark
@@ -1061,6 +1088,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!95 &5623944600174938730
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377327439750864585}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95bedd42b4e64a04eb12981d99976d78, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8541664636179977003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1118,7 @@ GameObject:
   - component: {fileID: 2946481594668926001}
   - component: {fileID: 1580256777878894071}
   - component: {fileID: 3690766740408705233}
+  - component: {fileID: 5596650429836694955}
   m_Layer: 0
   m_Name: Obstacle (1)
   m_TagString: Spark
@@ -1160,3 +1207,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
+--- !u!95 &5596650429836694955
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541664636179977003}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95bedd42b4e64a04eb12981d99976d78, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

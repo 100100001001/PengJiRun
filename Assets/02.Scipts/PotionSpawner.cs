@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +12,15 @@ public class PotionSpawner : MonoBehaviour
     private int potionIdx = 0;
     private int potionLen = 3;
 
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ ÃÖ¼Ú°ª
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²© ìµœì†Ÿê°’
     public float timeBetSpawnMin = 1.25f;
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ ÃÖ´ñ°ª
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²© ìµœëŒ“ê°’
     public float timeBetSpawnMax = 2.25f;
-    // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İ
+    // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©
     private float timeBetSpawn;
-    // ÃÊ¹İ¿¡ »ı¼ºÇÑ ¹ßÆÇÀ» È­¸é ¹Û¿¡ ¼û°ÜµÑ À§Ä¡
+    // ì´ˆë°˜ì— ìƒì„±í•œ ë°œíŒì„ í™”ë©´ ë°–ì— ìˆ¨ê²¨ë‘˜ ìœ„ì¹˜
     private Vector2 poolPosition = new Vector2(0, -25);
-    // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡
+    // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì 
     private float lastSpawnTime;
 
     void Start()
@@ -32,25 +32,25 @@ public class PotionSpawner : MonoBehaviour
             potions[i] = Instantiate(potionPrefab, poolPosition, Quaternion.identity);
         }
 
-        // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡ ÃÊ±âÈ­
+        // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì  ì´ˆê¸°í™”
         lastSpawnTime = 0f;
-        // ´ÙÀ½¹ø ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İÀ» ÃÊ±âÈ­
+        // ë‹¤ìŒë²ˆ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©ì„ ì´ˆê¸°í™”
         timeBetSpawn = 0f;
     }
 
     void Update()
     {
 
-        // °ÔÀÓ¿À¹ö »óÅÂ¿¡¼­´Â µ¿ÀÛÇÏÁö ¾ÊÀ½
+        // ê²Œì„ì˜¤ë²„ ìƒíƒœì—ì„œëŠ” ë™ì‘í•˜ì§€ ì•ŠìŒ
         if (GameManager.instance.isGameover || PlayerController.feverTime || PlayerController.potionTime) return;
 
-        // ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡¿¡¼­ timeBetSpawn ÀÌ»ó ½Ã°£ÀÌ Èê·¶´Ù¸é,
+        // ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì ì—ì„œ timeBetSpawn ì´ìƒ ì‹œê°„ì´ í˜ë €ë‹¤ë©´,
         if (Time.time >= lastSpawnTime + timeBetSpawn)
         {
-            // ±â·ÏµÈ ¸¶Áö¸· ¹èÄ¡ ½ÃÁ¡À» ÇöÀç ½ÃÁ¡À¸·Î °»½Å
+            // ê¸°ë¡ëœ ë§ˆì§€ë§‰ ë°°ì¹˜ ì‹œì ì„ í˜„ì¬ ì‹œì ìœ¼ë¡œ ê°±ì‹ 
             lastSpawnTime = Time.time;
 
-            // ´ÙÀ½ ¹èÄ¡±îÁöÀÇ ½Ã°£ °£°İÀ» timeBetSpawnMin, timeBetSpawnMax »çÀÌ¿¡¼­ ·£´ı °¡Á®¿À±â
+            // ë‹¤ìŒ ë°°ì¹˜ê¹Œì§€ì˜ ì‹œê°„ ê°„ê²©ì„ timeBetSpawnMin, timeBetSpawnMax ì‚¬ì´ì—ì„œ ëœë¤ ê°€ì ¸ì˜¤ê¸°
             timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
 
             float potionYPos = Random.Range(potionYMin, potionYMax);

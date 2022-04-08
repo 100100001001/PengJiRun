@@ -655,8 +655,8 @@ MonoBehaviour:
   potionClip: {fileID: 8300000, guid: 4b4ac861a212f1445bcbb9a5d86d8a87, type: 3}
   feverClip: {fileID: 8300000, guid: 01196e768257c084190ffbd33818613a, type: 3}
   endClip: {fileID: 8300000, guid: a6fcba781ff2d00428879656c849af79, type: 3}
-  feverTimeCnt: 5
   potionTimeCnt: 3
+  feverTimeCnt: 5
 --- !u!70 &222901989
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1047,7 +1047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b799854bc3ad174faa8e1031d78d932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
 --- !u!212 &586793521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1164,7 +1163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &783801708
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1372,7 +1371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b799854bc3ad174faa8e1031d78d932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
 --- !u!61 &976819753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2143,7 +2141,7 @@ MonoBehaviour:
   obYMin: -3
   obYMax: 5
   obLen: 10
-  timeBetSpawnMin: 0
+  timeBetSpawnMin: 0.2
   timeBetSpawnMax: 1
 --- !u!4 &1299091122
 Transform:
@@ -2221,7 +2219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 5671612091196906725, guid: 041169cef24812b4497afce2747d9d9c, type: 3}
-  count: 5
+  count: 6
   timeBetSpawnMin: 1.25
   timeBetSpawnMax: 2.25
   yMin: -1.25
@@ -2397,9 +2395,9 @@ MonoBehaviour:
   starYMin: -1
   starYMax: 6
   starIdx: 0
-  starLen: 10
-  timeBetSpawnMin: 0
-  timeBetSpawnMax: 1.25
+  starLen: 7
+  timeBetSpawnMin: 1
+  timeBetSpawnMax: 2.25
 --- !u!4 &1594769658
 Transform:
   m_ObjectHideFlags: 0

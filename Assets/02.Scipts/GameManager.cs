@@ -116,11 +116,16 @@ public class GameManager : MonoBehaviour
 
     public void HPPlus()
     {
-        if (hpCount > 3) hpCount = 3;
-
+        //Debug.Log("hpCount" + hpCount);
         hpPrefabPositive[hpCount].SetActive(true);
         hpPrefabNegative[hpCount].SetActive(false);
 
         hpCount++;
+
+        if (hpCount >= 3)
+        {
+            hpCount = 3;
+            //Debug.Log("3이 되었다");
+        }
     }
 }
