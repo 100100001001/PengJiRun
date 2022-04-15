@@ -655,8 +655,6 @@ MonoBehaviour:
   potionClip: {fileID: 8300000, guid: 4b4ac861a212f1445bcbb9a5d86d8a87, type: 3}
   feverClip: {fileID: 8300000, guid: 01196e768257c084190ffbd33818613a, type: 3}
   endClip: {fileID: 8300000, guid: a6fcba781ff2d00428879656c849af79, type: 3}
-  potionTimeCnt: 3
-  feverTimeCnt: 5
 --- !u!70 &222901989
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

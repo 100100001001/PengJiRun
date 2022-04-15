@@ -19,7 +19,7 @@ public class ScrollingObject : MonoBehaviour
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
             speed += addSpeed;
-            //Debug.Log(speed);
+            Debug.Log(speed);
 
             //addTimeCnt -= Time.deltaTime;
             //Debug.Log(speed);
