@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
     // 점프 힘
     public float jumpForce = 700f;
 
-    // 누적 점프 횟수
-    //private int jumpCount = 0;
     // 플레이어가 바닥에 닿았는지 확인
     private bool isGrounded = false;
     // 플레이어가 죽었냐 살았냐 = 사망 상태
@@ -22,6 +20,7 @@ public class PlayerController : MonoBehaviour
     // 사용할 애니메이터 컴포넌트
     private Animator animator;
 
+    // 상황별로 재생될 오디오 클립
     public AudioClip sparkClip;
     public AudioClip jumpClip;
     public AudioClip starClip;
@@ -52,14 +51,13 @@ public class PlayerController : MonoBehaviour
         // 1. 현재 상황에 알맞은 애니메이션을 재생
         // 2. 마우스 왼쪽 클릭을 감지하고 점프
         // 3. 마우스 왼쪽 버튼을 오래 누르면 높이 점프
-        // 4. 최대 점프 횟수에 도달하면 점프를 못하기 막기
 
         // 사망 시 더 이상 처리를 진행하지 않고 종료
         if (isDead) return;
 
-        if (Input.GetMouseButtonDown(0)) //&& jumpCount < 3)
+        // 점프
+        if (Input.GetMouseButtonDown(0))
         {
-            //jumpCount++;
             playerRigidbody.velocity = Vector2.zero;
 
             playerRigidbody.AddForce(new Vector2(0, jumpForce));
@@ -75,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("Grounded", isGrounded);
 
+        // 포션을 먹었을 때 시간 제한, 초기화
         if (potionTime)
         {
             potionTimeCnt -= Time.deltaTime;
@@ -88,6 +87,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // 피버타임 포션을 먹었을 때 시간 제한, 초기화
         if (feverTime)
         {
             animator.SetBool("Fever", feverTime);
@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.OnPlayerDead();
     }
 
+    // 커지는 포션 먹었을 때
     void potionPlus()
     {
         animator.SetBool("Fever", false);
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour
         feverTime = false;
     }
 
+    // 작아지는 포션 먹었을 때
     void potionMinus()
     {
         animator.SetBool("Fever", false);
@@ -135,6 +137,7 @@ public class PlayerController : MonoBehaviour
         feverTime = false;
     }
 
+    // 피버타임 포션 먹었을 때
     void potionFever()
     {
         playerTransform.localScale = new Vector3(5f, 5f, 5f);
