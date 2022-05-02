@@ -6,25 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance;    // 싱글톤 처리
 
-    public bool isGameover = false;
-    public Text scoreText;
-    public GameObject gameoverUI;
+    public bool isGameover = false;        // 게임오버 상태 표시
+    public Text scoreText;                 // 점수 텍스트
+    public GameObject gameoverUI;          // 게임오버 UI
 
     private int score = 0;
 
     public GameObject menuPanel;
 
-    public int hpCount = 3;
-    public GameObject[] hpPrefabPositive;
-    public GameObject[] hpPrefabNegative;
+    public int hpCount = 3;                // 체력
+    public GameObject[] hpPrefabPositive;  // 채워진 체력
+    public GameObject[] hpPrefabNegative;  // 깎인 체력
 
     public Text recordText;
 
     void Start()
     {
-        for (int i = 0; i < 3; i++) hpPrefabPositive[i].SetActive(true);
+        for (int i = 0; i < 3; i++) hpPrefabPositive[i].SetActive(true);  // 채워진 체력만 띄워줌
 
         float bestTime = PlayerPrefs.GetFloat("BestTime");
         recordText.text = "" + (int)bestTime;
@@ -125,7 +125,6 @@ public class GameManager : MonoBehaviour
         if (hpCount >= 3)
         {
             hpCount = 3;
-            //Debug.Log("3이 되었다");
         }
     }
 }
