@@ -20,20 +20,24 @@ public class PlayerController : MonoBehaviour
     // 사용할 애니메이터 컴포넌트
     private Animator animator;
 
-    // 상황별로 재생될 오디오 클립
-    public AudioClip sparkClip;
-    public AudioClip jumpClip;
-    public AudioClip starClip;
-    public AudioClip hpClip;
-    public AudioClip potionClip;
-    public AudioClip feverClip;
-    public AudioClip endClip;
+    // 상황별로 재생되는 오디오 클립
+    public AudioClip sparkClip;     // 장애물에 닿았을 때
+    public AudioClip jumpClip;      // 점프
+    public AudioClip starClip;      // 별에 닿았을 때
+    public AudioClip hpClip;        // hp
+    public AudioClip potionClip;    // 포션을 먹었을 때
+    public AudioClip feverClip;     // fever 포션을 먹었을 때
+    public AudioClip endClip;       // 포션의 효과가 끝났을 때
 
     private Transform playerTransform;
     public static bool potionTime = false;
     private float potionTimeCnt = 10f;
     public static bool feverTime = false;
     private float feverTimeCnt = 12f;
+
+    // fever 포션을 먹었을 때 장애물, 발판 비활성화를 위해 게임 오브젝트 받아 오기
+    public GameObject platformPrefab;
+    public GameObject obPrefab;
 
     void Start()
     {
@@ -43,6 +47,9 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
+
+        //platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
+        //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
     }
 
     void Update()
@@ -80,7 +87,7 @@ public class PlayerController : MonoBehaviour
             if (potionTimeCnt < 0)
             {
                 potionTimeCnt = 10f;
-                playerTransform.localScale = new Vector3(1, 1, 1);
+                playerTransform.localScale = new Vector2(1, 1);
                 potionTime = false;
                 feverTime = false;
                 playerAudio.PlayOneShot(endClip);
@@ -96,11 +103,14 @@ public class PlayerController : MonoBehaviour
             if (feverTimeCnt < 0)
             {
                 feverTimeCnt = 12f;
-                playerTransform.localScale = new Vector3(1, 1, 1);
+                playerTransform.localScale = new Vector2(1, 1);
                 potionTime = false;
                 feverTime = false;
                 animator.SetBool("Fever", feverTime);
                 playerAudio.PlayOneShot(endClip);
+
+                //platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
+                //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
             }
         }
     }
@@ -119,30 +129,36 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.OnPlayerDead();
     }
 
-    // 커지는 포션 먹었을 때
     void potionPlus()
     {
+        // 커지는 포션 먹었을 때
+
         animator.SetBool("Fever", false);
-        playerTransform.localScale = new Vector3(2f, 2f, 2f);
+        playerTransform.localScale = new Vector2(2f, 2f);
         potionTime = true;
         feverTime = false;
     }
 
-    // 작아지는 포션 먹었을 때
     void potionMinus()
     {
+        // 작아지는 포션 먹었을 때
+
         animator.SetBool("Fever", false);
-        playerTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        playerTransform.localScale = new Vector2(0.5f, 0.5f);
         potionTime = true;
         feverTime = false;
     }
 
-    // 피버타임 포션 먹었을 때
     void potionFever()
     {
-        playerTransform.localScale = new Vector3(5f, 5f, 5f);
+        // 피버타임 포션 먹었을 때
+
+        playerTransform.localScale = new Vector2(5f, 5f);
         feverTime = true;
         potionTime = false;
+
+        //platformPrefab.GetComponent<BoxCollider2D>().enabled = false;
+        //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -151,7 +167,6 @@ public class PlayerController : MonoBehaviour
         if (collision.contacts[0].normal.y > 0.7f)
         {
             isGrounded = true;
-            //jumpCount = 0;
         }
     }
 

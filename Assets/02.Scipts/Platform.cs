@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public GameObject[] obstacles;
+    //public GameObject[] obstacles;
     public GameObject[] stars;
     private bool stepped = false;
 
@@ -12,7 +12,7 @@ public class Platform : MonoBehaviour
     {
         stepped = false;
 
-        for (int i = 0; i < obstacles.Length; i++) obstacles[i].SetActive(Random.Range(0, 4) == 0 ? true : false);
+        //for (int i = 0; i < obstacles.Length; i++) obstacles[i].SetActive(Random.Range(0, 4) == 0 ? true : false);
         for (int i = 0; i < stars.Length; i++) stars[i].SetActive(Random.Range(0, 2) == 0 ? true : false);
     }
 

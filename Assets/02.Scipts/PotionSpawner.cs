@@ -41,7 +41,7 @@ public class PotionSpawner : MonoBehaviour
     void Update()
     {
 
-        // 게임오버 상태에서는 동작하지 않음
+        // 게임오버, 피버타임, 포션을 먹었을 때에는 동작하지 않음
         if (GameManager.instance.isGameover || PlayerController.feverTime || PlayerController.potionTime) return;
 
         // 마지막 배치 시점에서 timeBetSpawn 이상 시간이 흘렀다면,
