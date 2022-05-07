@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject obPrefab;
 
+    public SpriteRenderer spriteRenderer;
+
     void Start()
     {
         // 전역변수의 초기화 진행
@@ -48,8 +50,10 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTransform = GetComponent<Transform>();
 
-        //platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
-        //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
+        platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
+        obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -100,6 +104,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Fever", feverTime);
 
             feverTimeCnt -= Time.deltaTime;
+
+            //while (feverTimeCnt < 5)
+            //{
+            //    if (feverTimeCnt % 2 == 0) spriteRenderer.color = new Color32(255, 255, 255, 100);
+            //    else spriteRenderer.color = new Color32(255, 255, 255, 255);
+            //}
+
             if (feverTimeCnt < 0)
             {
                 feverTimeCnt = 12f;
@@ -109,8 +120,10 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Fever", feverTime);
                 playerAudio.PlayOneShot(endClip);
 
-                //platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
-                //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
+                platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
+                obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
+
+                //spriteRenderer.color = new Color32(255, 255, 255, 255);
             }
         }
     }
@@ -157,8 +170,8 @@ public class PlayerController : MonoBehaviour
         feverTime = true;
         potionTime = false;
 
-        //platformPrefab.GetComponent<BoxCollider2D>().enabled = false;
-        //obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
+        platformPrefab.GetComponent<BoxCollider2D>().enabled = false;
+        obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
