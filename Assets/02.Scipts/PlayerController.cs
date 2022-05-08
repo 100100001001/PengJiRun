@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public GameObject obPrefab;
 
     public SpriteRenderer spriteRenderer;
+    int tmp = 0;
 
     void Start()
     {
@@ -104,12 +105,21 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Fever", feverTime);
 
             feverTimeCnt -= Time.deltaTime;
+            Debug.Log((int)feverTimeCnt);
+            tmp++;
 
-            //while (feverTimeCnt < 5)
-            //{
-            //    if (feverTimeCnt % 2 == 0) spriteRenderer.color = new Color32(255, 255, 255, 100);
-            //    else spriteRenderer.color = new Color32(255, 255, 255, 255);
-            //}
+            if (feverTimeCnt < 3)
+            {
+                if (tmp % 2 == 0)
+                {
+                    spriteRenderer.color = new Color32(255, 255, 255, 100);
+                }
+                else
+                {
+                    spriteRenderer.color = new Color32(255, 255, 255, 255);
+
+                }
+            }
 
             if (feverTimeCnt < 0)
             {
@@ -123,7 +133,7 @@ public class PlayerController : MonoBehaviour
                 platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
                 obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
 
-                //spriteRenderer.color = new Color32(255, 255, 255, 255);
+                spriteRenderer.color = new Color32(255, 255, 255, 255);
             }
         }
     }
