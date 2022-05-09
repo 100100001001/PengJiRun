@@ -106,20 +106,6 @@ public class PlayerController : MonoBehaviour
 
             feverTimeCnt -= Time.deltaTime;
             Debug.Log((int)feverTimeCnt);
-            tmp++;
-
-            if (feverTimeCnt < 3)
-            {
-                if (tmp % 2 == 0)
-                {
-                    spriteRenderer.color = new Color32(255, 255, 255, 100);
-                }
-                else
-                {
-                    spriteRenderer.color = new Color32(255, 255, 255, 255);
-
-                }
-            }
 
             if (feverTimeCnt < 0)
             {
@@ -172,7 +158,7 @@ public class PlayerController : MonoBehaviour
         feverTime = false;
     }
 
-    void potionFever()
+        void potionFever()
     {
         // 피버타임 포션 먹었을 때
 
@@ -183,6 +169,30 @@ public class PlayerController : MonoBehaviour
         platformPrefab.GetComponent<BoxCollider2D>().enabled = false;
         obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
+
+    IEnumerator Blink()
+    {
+        // 장애물에 닿았을 때 캐릭터 깜빡이기
+        int countTime = 0;
+
+        while (countTime < 5)
+        {
+            // 알파값 조절
+            if (countTime % 2 == 0) spriteRenderer.color = new Color32(255, 255, 255, 90);
+            else spriteRenderer.color = new Color32(255, 255, 255, 180);
+            
+            // 초 대기하기
+            yield return new WaitForSeconds(0.1f);
+
+            countTime++;
+        }
+
+        // 알파값 원래 상태로 바꾸기
+        spriteRenderer.color = new Color32(255, 255, 255, 255);
+
+        yield return null;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -211,7 +221,9 @@ public class PlayerController : MonoBehaviour
                 Die();
                 break;
             case "Spark":
+                if (feverTime) return;
                 playerAudio.PlayOneShot(sparkClip);
+                StartCoroutine(Blink());
                 if (GameManager.instance.Crash()) Die();
                 break;
             case "Star":
