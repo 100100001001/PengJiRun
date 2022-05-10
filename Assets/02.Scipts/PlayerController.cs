@@ -39,8 +39,7 @@ public class PlayerController : MonoBehaviour
     public GameObject platformPrefab;
     public GameObject obPrefab;
 
-    public SpriteRenderer spriteRenderer;
-    int tmp = 0;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -89,12 +88,21 @@ public class PlayerController : MonoBehaviour
         if (potionTime)
         {
             potionTimeCnt -= Time.deltaTime;
+
+            // 포션타임이 끝나기 전에 깜빡이는 애니메이션으로 바꿔 줌
+            if (potionTimeCnt < 3)
+            {
+                animator.SetBool("PotionEnd", potionTime);
+            }
+
+            // 초기화
             if (potionTimeCnt < 0)
             {
                 potionTimeCnt = 10f;
                 playerTransform.localScale = new Vector2(1, 1);
                 potionTime = false;
                 feverTime = false;
+                animator.SetBool("PotionEnd", potionTime);
                 playerAudio.PlayOneShot(endClip);
             }
         }
@@ -105,8 +113,15 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Fever", feverTime);
 
             feverTimeCnt -= Time.deltaTime;
-            Debug.Log((int)feverTimeCnt);
+            //Debug.Log((int)feverTimeCnt);
 
+            // 포션타임이 끝나기 전에 깜빡이는 애니메이션으로 바꿔 줌
+            if (feverTimeCnt < 3)
+            {
+                animator.SetBool("End", feverTime);
+            }
+
+            // 초기화
             if (feverTimeCnt < 0)
             {
                 feverTimeCnt = 12f;
@@ -118,8 +133,6 @@ public class PlayerController : MonoBehaviour
 
                 platformPrefab.GetComponent<BoxCollider2D>().enabled = true;
                 obPrefab.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = true;
-
-                spriteRenderer.color = new Color32(255, 255, 255, 255);
             }
         }
     }
@@ -143,6 +156,7 @@ public class PlayerController : MonoBehaviour
         // 커지는 포션 먹었을 때
 
         animator.SetBool("Fever", false);
+        animator.SetBool("End", false);
         playerTransform.localScale = new Vector2(2f, 2f);
         potionTime = true;
         feverTime = false;
@@ -153,6 +167,7 @@ public class PlayerController : MonoBehaviour
         // 작아지는 포션 먹었을 때
 
         animator.SetBool("Fever", false);
+        animator.SetBool("End", false);
         playerTransform.localScale = new Vector2(0.5f, 0.5f);
         potionTime = true;
         feverTime = false;

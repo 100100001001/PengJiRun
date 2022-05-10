@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: 00217d2266c95f542be0a9d105bd7614
+guid: 123c27c69ecbb3e44ba94896b01fe6ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2577392053871103768
-    second: Obstacle3_3_0
+      213: 7959534646293233716
+    second: Pengji_player_fever_end_0
   - first:
-      213: -1208071958360586946
-    second: Obstacle3_3_1
+      213: 998535994783369431
+    second: Pengji_player_fever_end_1
   - first:
-      213: 7306062210171967460
-    second: Obstacle3_3_2
-  - first:
-      213: -2241181140278076587
-    second: Obstacle3_3_3
-  - first:
-      213: 4583868765050627292
-    second: Obstacle3_3_4
-  - first:
-      213: -8469507581761611712
-    second: Obstacle3_3_5
+      213: -3584572540269200435
+    second: Pengji_player_fever_end_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -133,127 +124,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Obstacle3_3_0
+      name: Pengji_player_fever_end_0
       rect:
         serializedVersion: 2
-        x: 186
-        y: 0
-        width: 880
-        height: 1000
+        x: 233
+        y: 25
+        width: 81
+        height: 101
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e0391625934b3cd0800000000000000
-      internalID: -2577392053871103768
+      spriteID: 43009b1e692f57e60800000000000000
+      internalID: 7959534646293233716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Obstacle3_3_1
+      name: Pengji_player_fever_end_1
       rect:
         serializedVersion: 2
-        x: 1240
-        y: 0
-        width: 841
-        height: 1000
+        x: 341
+        y: 25
+        width: 81
+        height: 101
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e358eca54f01c3fe0800000000000000
-      internalID: -1208071958360586946
+      spriteID: 7d8018062338bdd00800000000000000
+      internalID: 998535994783369431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Obstacle3_3_2
+      name: Pengji_player_fever_end_2
       rect:
         serializedVersion: 2
-        x: 2349
-        y: 0
-        width: 860
-        height: 1000
+        x: 451
+        y: 25
+        width: 81
+        height: 101
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e79438fed8546560800000000000000
-      internalID: 7306062210171967460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Obstacle3_3_3
-      rect:
-        serializedVersion: 2
-        x: 3471
-        y: 0
-        width: 854
-        height: 1000
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55b9b6090a9b5e0e0800000000000000
-      internalID: -2241181140278076587
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Obstacle3_3_4
-      rect:
-        serializedVersion: 2
-        x: 4544
-        y: 0
-        width: 850
-        height: 960
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd4e9ddfa5c2d9f30800000000000000
-      internalID: 4583868765050627292
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Obstacle3_3_5
-      rect:
-        serializedVersion: 2
-        x: 5641
-        y: 0
-        width: 849
-        height: 960
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0481f9e4ab3467a80800000000000000
-      internalID: -8469507581761611712
+      spriteID: dcb72a9344a014ec0800000000000000
+      internalID: -3584572540269200435
       vertices: []
       indices: 
       edges: []
