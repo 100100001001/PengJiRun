@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ScrollingObject : MonoBehaviour
 {
-    private float speed = 10f;
-    public static float addSpeed = 0.0001f;
+    public float speed = 10f;
+    //public static float addSpeed = 0.0001f;
+    public static float addSpeed = 0.001f;
     //public static float addSpeed = 2f;
 
     //public static bool addTime = false;
@@ -19,7 +20,7 @@ public class ScrollingObject : MonoBehaviour
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
             speed += addSpeed;
-            //Debug.Log(speed);
+            Debug.Log(speed);
 
             //addTimeCnt -= Time.deltaTime;
             //Debug.Log(speed);

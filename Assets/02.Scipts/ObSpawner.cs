@@ -53,7 +53,7 @@ public class ObSpawner : MonoBehaviour
             lastSpawnTime = Time.time;
 
             // 다음 배치까지의 시간 간격을 timeBetSpawnMin, timeBetSpawnMax 사이에서 랜덤 가져오기
-            timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
+            timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax) - ScrollingObject.addSpeed;
 
             float obYPos = Random.Range(obYMin, obYMax);
             ob[obIdx].SetActive(false);

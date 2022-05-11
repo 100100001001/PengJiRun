@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundItem6 : MonoBehaviour
+public class Star : MonoBehaviour
 {
     public GameObject[] stars;
 

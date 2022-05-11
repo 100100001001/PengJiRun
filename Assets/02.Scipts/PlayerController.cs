@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             potionTimeCnt -= Time.deltaTime;
 
             // 포션타임이 끝나기 전에 깜빡이는 애니메이션으로 바꿔 줌
-            if (potionTimeCnt < 3)
+            if (potionTimeCnt < 5)
             {
                 animator.SetBool("PotionEnd", potionTime);
             }
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log((int)feverTimeCnt);
 
             // 포션타임이 끝나기 전에 깜빡이는 애니메이션으로 바꿔 줌
-            if (feverTimeCnt < 3)
+            if (feverTimeCnt < 5)
             {
                 animator.SetBool("End", feverTime);
             }
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
                 if (feverTime) return;
                 playerAudio.PlayOneShot(sparkClip);
                 StartCoroutine(Blink());
-                if (GameManager.instance.Crash()) Die();
+                //if (GameManager.instance.Crash()) Die();
                 break;
             case "Star":
                 playerAudio.PlayOneShot(starClip);

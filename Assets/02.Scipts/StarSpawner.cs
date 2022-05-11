@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundItemSpawner : MonoBehaviour
+public class StarSpawner : MonoBehaviour
 {
     // obstacle
     //private GameObject[] ob;
@@ -83,7 +83,7 @@ public class GroundItemSpawner : MonoBehaviour
             lastSpawnTime = Time.time;
 
             // 다음 배치까지의 시간 간격을 timeBetSpawnMin, timeBetSpawnMax 사이에서 랜덤 가져오기
-            timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax);
+            timeBetSpawn = Random.Range(timeBetSpawnMin, timeBetSpawnMax) - (ScrollingObject.addSpeed * 10);
 
             // ob
             //float obXPos = Random.Range(hpXMin, hpXMax);
